@@ -22,6 +22,12 @@ public class AgendaServiceImp implements AgendaServicePort {
     }
 
     @Override
+    public AgendaDTO buscarPeloId(Integer id) {
+        Agenda agenda = this.agendaRepository.buscarPeloId(id);
+        return new AgendaDTO(agenda.getId(), agenda.getDataHoraEnvio(), agenda.getMensagem(), agenda.getDestinatario());
+    }
+
+    @Override
     public List<AgendaDTO> buscarAgendaPorPessoa(PessoaDTO pessoaDTO) {
         Pessoa pessoa = new Pessoa(pessoaDTO);
         List<Agenda> agendas = this.agendaRepository.buscarPorPessoa(pessoa);
@@ -45,5 +51,16 @@ public class AgendaServiceImp implements AgendaServicePort {
         agenda.atualizarAgenda(mensagemDTO.getMensagem());
 
         this.agendaRepository.salvar(agenda);
+    }
+
+    @Override
+    public void excluirAgenda(Integer id) throws NotFoundException {
+        Agenda agenda = this.agendaRepository.buscarPeloId(id);
+
+        if(Objects.isNull(agenda)) {
+            throw new NotFoundException("Agenda não encontrada");
+        }
+
+        this.agendaRepository.excluir(id);
     }
 }

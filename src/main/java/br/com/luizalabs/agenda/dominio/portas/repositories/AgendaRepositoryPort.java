@@ -13,4 +13,6 @@ public interface AgendaRepositoryPort {
     Agenda buscarPeloId(Integer id);
 
     void salvar(Agenda agenda);
+
+    void excluir(Integer id);
 }

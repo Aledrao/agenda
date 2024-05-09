@@ -46,4 +46,14 @@ public class AgendaRepository implements AgendaRepositoryPort {
         this.springProdutoRepository.save(agendaEntity);
     }
 
+    @Override
+    public void excluir(Integer id) {
+        Optional<AgendaEntity> agendaEntity = this.springProdutoRepository.findById(id);
+
+        if(agendaEntity.isPresent())
+            this.springProdutoRepository.deleteById(id);
+        else
+            throw new RuntimeException("Agenda não existe");
+    }
+
 }

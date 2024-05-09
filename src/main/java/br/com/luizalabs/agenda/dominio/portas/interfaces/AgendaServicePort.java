@@ -12,7 +12,11 @@ public interface AgendaServicePort {
 
     List<AgendaDTO> buscarAgendaPorPessoa(PessoaDTO pessoaDTO);
 
+    AgendaDTO buscarPeloId(Integer id);
+
     void criarAgenda(AgendaDTO agendaDTO);
 
     void atualizarAgenda(Integer id, MensagemDTO mensagemDTO) throws NotFoundException;
+
+    void excluirAgenda(Integer id) throws NotFoundException;
 }
