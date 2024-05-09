@@ -28,4 +28,8 @@ public class Agenda {
         return new AgendaDTO(this.id, this.dataHoraEnvio, this.mensagem, this.destinatario);
     }
 
+    public void atualizarAgenda(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
 }

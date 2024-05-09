@@ -42,6 +42,8 @@ public class AgendaServiceImp implements AgendaServicePort {
         if(Objects.isNull(agenda))
             throw new NotFoundException("Agenda não encontrada");
 
+        agenda.atualizarAgenda(mensagemDTO.getMensagem());
 
+        this.agendaRepository.salvar(agenda);
     }
 }
