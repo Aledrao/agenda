@@ -9,6 +9,7 @@ import br.com.luizalabs.agenda.dominio.portas.interfaces.AgendaServicePort;
 import br.com.luizalabs.agenda.dominio.portas.repositories.AgendaRepositoryPort;
 import javassist.NotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -38,6 +39,7 @@ public class AgendaServiceImp implements AgendaServicePort {
     @Override
     public void criarAgenda(AgendaDTO agendaDTO) {
         Agenda agenda = new Agenda(agendaDTO);
+        agenda.setEnvio(LocalDateTime.now());
         this.agendaRepository.salvar(agenda);
     }
 
@@ -48,7 +50,7 @@ public class AgendaServiceImp implements AgendaServicePort {
         if(Objects.isNull(agenda))
             throw new NotFoundException("Agenda não encontrada");
 
-        agenda.atualizarAgenda(mensagemDTO.getMensagem());
+        agenda.atualizarAgenda(mensagemDTO.getMensagem(), LocalDateTime.now());
 
         this.agendaRepository.salvar(agenda);
     }

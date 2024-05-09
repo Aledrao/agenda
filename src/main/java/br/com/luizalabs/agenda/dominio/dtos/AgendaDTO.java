@@ -12,7 +12,9 @@ public class AgendaDTO {
 
     private Long id;
     private LocalDateTime envio;
+    private LocalDateTime ultima_atualizacao;
     private String mensagem;
     private Pessoa destinatario;
+    private Pessoa remetente;
 
 }
