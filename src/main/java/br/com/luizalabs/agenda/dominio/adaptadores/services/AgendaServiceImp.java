@@ -25,7 +25,7 @@ public class AgendaServiceImp implements AgendaServicePort {
     @Override
     public AgendaDTO buscarPeloId(Integer id) {
         Agenda agenda = this.agendaRepository.buscarPeloId(id);
-        return new AgendaDTO(agenda.getId(), agenda.getEnvio(), agenda.getMensagem(), agenda.getDestinatario());
+        return new AgendaDTO(agenda.getId(), agenda.getEnvio(), agenda.getUltima_atualizacao(), agenda.getMensagem(), agenda.getDestinatario(), agenda.getRemetente());
     }
 
     @Override
