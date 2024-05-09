@@ -13,19 +13,19 @@ import java.time.LocalDateTime;
 public class Agenda {
 
     private Long id;
-    private LocalDateTime dataHoraEnvio;
+    private LocalDateTime envio;
     private String mensagem;
     private Pessoa destinatario;
 
     public Agenda(AgendaDTO agendaDTO) {
         this.id = agendaDTO.getId();
-        this.dataHoraEnvio = agendaDTO.getDataHoraEnvio();
+        this.envio = agendaDTO.getEnvio();
         this.mensagem = agendaDTO.getMensagem();
         this.destinatario = agendaDTO.getDestinatario();
     }
 
-    public AgendaDTO agendaDTO() {
-        return new AgendaDTO(this.id, this.dataHoraEnvio, this.mensagem, this.destinatario);
+    public AgendaDTO toAgendaDTO() {
+        return new AgendaDTO(this.id, this.envio, this.mensagem, this.destinatario);
     }
 
     public void atualizarAgenda(String mensagem) {

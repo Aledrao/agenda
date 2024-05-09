@@ -21,8 +21,5 @@ public class Pessoa {
         this.login = pessoaDTO.getLogin();
         this.email = pessoaDTO.getEmail();
     }
-    public PessoaDTO pessoaDTO() {
-        return new PessoaDTO(this.id, this.nome, this.login, this.email);
-    }
 
 }

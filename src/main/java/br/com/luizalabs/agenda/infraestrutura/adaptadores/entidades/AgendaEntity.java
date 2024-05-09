@@ -21,25 +21,26 @@ public class AgendaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    private LocalDateTime dataHoraEnvio;
+    private LocalDateTime envio;
     private String mensagem;
     private Pessoa destinatario;
 
     public AgendaEntity(Agenda agenda) {
         this.id = agenda.getId();
-        this.dataHoraEnvio = agenda.getDataHoraEnvio();
+        this.envio = agenda.getEnvio();
         this.mensagem = agenda.getMensagem();
         this.destinatario = agenda.getDestinatario();
     }
 
     public void atualizar(Agenda agenda) {
         this.id = agenda.getId();
-        this.dataHoraEnvio = agenda.getDataHoraEnvio();
+        this.envio = agenda.getEnvio();
         this.mensagem = agenda.getMensagem();
         this.destinatario = agenda.getDestinatario();
     }
 
     public Agenda toAgenda() {
-        return new Agenda(this.id, this.dataHoraEnvio, this.mensagem, this.destinatario);
+        return new Agenda(this.id, this.envio, this.mensagem, this.destinatario);
     }
+
 }

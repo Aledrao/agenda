@@ -14,4 +14,5 @@ public interface SpringProdutoRepository extends JpaRepository<AgendaEntity, Lon
     List<AgendaEntity> findByPessoa(Pessoa pessoa);
 
     void deleteById(Integer id);
+
 }

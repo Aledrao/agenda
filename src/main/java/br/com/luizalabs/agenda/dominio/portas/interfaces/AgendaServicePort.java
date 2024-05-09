@@ -19,4 +19,5 @@ public interface AgendaServicePort {
     void atualizarAgenda(Integer id, MensagemDTO mensagemDTO) throws NotFoundException;
 
     void excluirAgenda(Integer id) throws NotFoundException;
+
 }

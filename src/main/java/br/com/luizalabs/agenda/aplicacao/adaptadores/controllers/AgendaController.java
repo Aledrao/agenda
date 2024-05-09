@@ -43,4 +43,5 @@ public class AgendaController {
     void deletarAgenda(@PathVariable Integer id) throws NotFoundException {
         agendaServicePort.excluirAgenda(id);
     }
+
 }

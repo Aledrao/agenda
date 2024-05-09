@@ -13,4 +13,5 @@ public class BeanConfiguration {
     AgendaServicePort agendaService(AgendaRepositoryPort agendaRepositoryPort) {
         return new AgendaServiceImp(agendaRepositoryPort);
     }
+
 }

@@ -6,4 +6,5 @@ import lombok.Getter;
 public class MensagemDTO {
 
     private String mensagem;
+
 }

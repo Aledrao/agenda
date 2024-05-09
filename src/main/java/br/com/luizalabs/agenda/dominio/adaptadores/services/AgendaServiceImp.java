@@ -24,14 +24,14 @@ public class AgendaServiceImp implements AgendaServicePort {
     @Override
     public AgendaDTO buscarPeloId(Integer id) {
         Agenda agenda = this.agendaRepository.buscarPeloId(id);
-        return new AgendaDTO(agenda.getId(), agenda.getDataHoraEnvio(), agenda.getMensagem(), agenda.getDestinatario());
+        return new AgendaDTO(agenda.getId(), agenda.getEnvio(), agenda.getMensagem(), agenda.getDestinatario());
     }
 
     @Override
     public List<AgendaDTO> buscarAgendaPorPessoa(PessoaDTO pessoaDTO) {
         Pessoa pessoa = new Pessoa(pessoaDTO);
         List<Agenda> agendas = this.agendaRepository.buscarPorPessoa(pessoa);
-        List<AgendaDTO> agendaDTOS = agendas.stream().map(Agenda::agendaDTO).collect(Collectors.toList());
+        List<AgendaDTO> agendaDTOS = agendas.stream().map(Agenda::toAgendaDTO).collect(Collectors.toList());
         return agendaDTOS;
     }
 
@@ -63,4 +63,5 @@ public class AgendaServiceImp implements AgendaServicePort {
 
         this.agendaRepository.excluir(id);
     }
+
 }

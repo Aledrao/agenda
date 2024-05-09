@@ -11,7 +11,8 @@ import java.time.LocalDateTime;
 public class AgendaDTO {
 
     private Long id;
-    private LocalDateTime dataHoraEnvio;
+    private LocalDateTime envio;
     private String mensagem;
     private Pessoa destinatario;
+
 }
