@@ -2,16 +2,19 @@ package br.com.luizalabs.agenda.infraestrutura.adaptadores.repositories;
 
 import br.com.luizalabs.agenda.dominio.Pessoa;
 import br.com.luizalabs.agenda.infraestrutura.adaptadores.entidades.AgendaEntity;
+import br.com.luizalabs.agenda.infraestrutura.adaptadores.entidades.PessoaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface SpringProdutoRepository extends JpaRepository<AgendaEntity, Long> {
+@Repository
+public interface SpringAgendaRepository extends JpaRepository<AgendaEntity, Long> {
 
     Optional<AgendaEntity> findById(Integer id);
 
-    List<AgendaEntity> findByPessoa(Pessoa pessoa);
+    List<AgendaEntity> findByDestinatario(PessoaEntity pessoaEntity);
 
     void deleteById(Integer id);
 

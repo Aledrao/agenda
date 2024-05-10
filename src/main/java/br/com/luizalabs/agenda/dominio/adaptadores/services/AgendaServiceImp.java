@@ -31,7 +31,7 @@ public class AgendaServiceImp implements AgendaServicePort {
     @Override
     public List<AgendaDTO> buscarAgendaPorPessoa(PessoaDTO pessoaDTO) {
         Pessoa pessoa = new Pessoa(pessoaDTO);
-        List<Agenda> agendas = this.agendaRepository.buscarPorPessoa(pessoa);
+        List<Agenda> agendas = this.agendaRepository.buscarPorDestinatario(pessoa);
         List<AgendaDTO> agendaDTOS = agendas.stream().map(Agenda::toAgendaDTO).collect(Collectors.toList());
         return agendaDTOS;
     }

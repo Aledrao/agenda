@@ -25,7 +25,7 @@ public class AgendaController {
     }
 
     @GetMapping
-    List<AgendaDTO> getAgendasPorPessoa(@RequestBody PessoaDTO pessoaDTO) {
+    List<AgendaDTO> getAgendasPorDestinatario(@RequestBody PessoaDTO pessoaDTO) {
         return agendaServicePort.buscarAgendaPorPessoa(pessoaDTO);
     }
 

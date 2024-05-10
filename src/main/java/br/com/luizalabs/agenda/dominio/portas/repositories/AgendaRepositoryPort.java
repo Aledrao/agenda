@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AgendaRepositoryPort {
 
-    List<Agenda> buscarPorPessoa(Pessoa pessoa);
+    List<Agenda> buscarPorDestinatario(Pessoa destinatario);
 
     Agenda buscarPeloId(Integer id);
 

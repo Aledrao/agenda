@@ -1,39 +1,37 @@
 package br.com.luizalabs.agenda.infraestrutura.adaptadores.entidades;
 
 import br.com.luizalabs.agenda.dominio.Agenda;
-import br.com.luizalabs.agenda.dominio.Pessoa;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Entity(name = "agenda")
+@Entity
+@Table(name = "agenda")
 @NoArgsConstructor
-@Getter
-@Setter
 public class AgendaEntity {
 
+    @SequenceGenerator(name = "agenda_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "agenda_id_seq")
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
     private LocalDateTime envio;
     private LocalDateTime ultima_atualizacao;
     private String mensagem;
-    private Pessoa destinatario;
-    private Pessoa remetente;
+    @ManyToOne
+    @JoinColumn(name = "destinatario")
+    private PessoaEntity destinatario;
+    @ManyToOne
+    @JoinColumn(name = "remetente")
+    private PessoaEntity remetente;
 
     public AgendaEntity(Agenda agenda) {
         this.id = agenda.getId();
         this.envio = agenda.getEnvio();
         this.ultima_atualizacao = agenda.getUltima_atualizacao();
         this.mensagem = agenda.getMensagem();
-        this.destinatario = agenda.getDestinatario();
-        this.remetente = agenda.getRemetente();
+        this.destinatario = new PessoaEntity(agenda.getDestinatario());
+        this.remetente = new PessoaEntity(agenda.getRemetente());
     }
 
     public void atualizar(Agenda agenda) {
@@ -41,12 +39,12 @@ public class AgendaEntity {
         this.envio = agenda.getEnvio();
         this.ultima_atualizacao = agenda.getUltima_atualizacao();
         this.mensagem = agenda.getMensagem();
-        this.destinatario = agenda.getDestinatario();
-        this.remetente = agenda.getRemetente();
+        this.destinatario = new PessoaEntity(agenda.getDestinatario());
+        this.remetente = new PessoaEntity(agenda.getRemetente());
     }
 
     public Agenda toAgenda() {
-        return new Agenda(this.id, this.envio, this.ultima_atualizacao, this.mensagem, this.destinatario, this.remetente);
+        return new Agenda(this.id, this.envio, this.ultima_atualizacao, this.mensagem, new PessoaEntity().toPessoa(destinatario), new PessoaEntity().toPessoa(remetente));
     }
 
 }
