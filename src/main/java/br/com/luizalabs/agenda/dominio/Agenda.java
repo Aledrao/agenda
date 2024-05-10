@@ -2,14 +2,12 @@ package br.com.luizalabs.agenda.dominio;
 
 import br.com.luizalabs.agenda.dominio.dtos.AgendaDTO;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class Agenda {
 
     private Long id;
