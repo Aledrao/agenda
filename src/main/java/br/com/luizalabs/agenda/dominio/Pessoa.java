@@ -20,4 +20,8 @@ public class Pessoa {
         this.email = pessoaDTO.getEmail();
     }
 
+    public PessoaDTO toPessoaDTO() {
+        return new PessoaDTO(this.id, this.nome, this.login, this.email);
+    }
+
 }

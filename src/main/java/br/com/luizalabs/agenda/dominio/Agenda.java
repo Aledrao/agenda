@@ -1,6 +1,7 @@
 package br.com.luizalabs.agenda.dominio;
 
 import br.com.luizalabs.agenda.dominio.dtos.AgendaDTO;
+import br.com.luizalabs.agenda.dominio.dtos.PessoaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -22,12 +23,12 @@ public class Agenda {
         this.envio = agendaDTO.getEnvio();
         this.ultima_atualizacao = agendaDTO.getUltima_atualizacao();
         this.mensagem = agendaDTO.getMensagem();
-        this.destinatario = agendaDTO.getDestinatario();
-        this.remetente = agendaDTO.getRemetente();
+        this.destinatario = new Pessoa(agendaDTO.getDestinatario().getId(), agendaDTO.getDestinatario().getNome(), agendaDTO.getDestinatario().getLogin(), agendaDTO.getDestinatario().getEmail());
+        this.remetente = new Pessoa(agendaDTO.getRemetente().getId(), agendaDTO.getRemetente().getNome(), agendaDTO.getRemetente().getLogin(), agendaDTO.getRemetente().getEmail());;
     }
 
     public AgendaDTO toAgendaDTO() {
-        return new AgendaDTO(this.id, this.envio, this.ultima_atualizacao, this.mensagem, this.destinatario, this.remetente);
+        return new AgendaDTO(this.id, this.envio, this.ultima_atualizacao, this.mensagem, this.destinatario.toPessoaDTO(), this.remetente.toPessoaDTO());
     }
 
     public void atualizarAgenda(String mensagem, LocalDateTime ultima_atualizacao) {

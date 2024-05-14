@@ -35,7 +35,7 @@ public class AgendaController {
     }
 
     @PutMapping(value = "/{id}")
-    void atualiarAgenda(@PathVariable Integer id, @RequestBody MensagemDTO mensagemDTO) throws NotFoundException {
+    void atualizarAgenda(@PathVariable Integer id, @RequestBody MensagemDTO mensagemDTO) throws NotFoundException {
         agendaServicePort.atualizarAgenda(id, mensagemDTO);
     }
 
