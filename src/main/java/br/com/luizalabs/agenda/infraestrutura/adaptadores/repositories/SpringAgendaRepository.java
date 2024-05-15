@@ -1,6 +1,5 @@
 package br.com.luizalabs.agenda.infraestrutura.adaptadores.repositories;
 
-import br.com.luizalabs.agenda.dominio.Pessoa;
 import br.com.luizalabs.agenda.infraestrutura.adaptadores.entidades.AgendaEntity;
 import br.com.luizalabs.agenda.infraestrutura.adaptadores.entidades.PessoaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

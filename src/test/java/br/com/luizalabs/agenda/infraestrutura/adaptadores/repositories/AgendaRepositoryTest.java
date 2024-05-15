@@ -1,17 +1,14 @@
 package br.com.luizalabs.agenda.infraestrutura.adaptadores.repositories;
 
-import br.com.luizalabs.agenda.aplicacao.adaptadores.controllers.AgendaController;
 import br.com.luizalabs.agenda.dominio.Agenda;
 import br.com.luizalabs.agenda.dominio.Pessoa;
 import br.com.luizalabs.agenda.infraestrutura.adaptadores.entidades.AgendaEntity;
 import br.com.luizalabs.agenda.infraestrutura.adaptadores.entidades.PessoaEntity;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -19,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

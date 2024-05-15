@@ -2,7 +2,6 @@ package br.com.luizalabs.agenda.dominio.portas.repositories;
 
 import br.com.luizalabs.agenda.dominio.Agenda;
 import br.com.luizalabs.agenda.dominio.Pessoa;
-import br.com.luizalabs.agenda.dominio.dtos.PessoaDTO;
 
 import java.util.List;
 

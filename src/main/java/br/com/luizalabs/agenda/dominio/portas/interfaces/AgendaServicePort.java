@@ -1,11 +1,9 @@
 package br.com.luizalabs.agenda.dominio.portas.interfaces;
 
-import br.com.luizalabs.agenda.dominio.Pessoa;
 import br.com.luizalabs.agenda.dominio.dtos.AgendaDTO;
 import br.com.luizalabs.agenda.dominio.dtos.MensagemDTO;
 import br.com.luizalabs.agenda.dominio.dtos.PessoaDTO;
 import javassist.NotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

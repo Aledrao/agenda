@@ -1,7 +1,6 @@
 package br.com.luizalabs.agenda.dominio;
 
 import br.com.luizalabs.agenda.dominio.dtos.AgendaDTO;
-import br.com.luizalabs.agenda.dominio.dtos.PessoaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
