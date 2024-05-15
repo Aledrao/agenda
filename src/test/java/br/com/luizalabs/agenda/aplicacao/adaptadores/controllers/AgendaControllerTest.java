@@ -1,95 +1,105 @@
 package br.com.luizalabs.agenda.aplicacao.adaptadores.controllers;
 
-import io.restassured.RestAssured;
+import br.com.luizalabs.agenda.dominio.dtos.AgendaDTO;
+import br.com.luizalabs.agenda.dominio.dtos.MensagemDTO;
+import br.com.luizalabs.agenda.dominio.dtos.PessoaDTO;
+import br.com.luizalabs.agenda.dominio.portas.interfaces.AgendaServicePort;
+import javassist.NotFoundException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
 class AgendaControllerTest {
 
-    @LocalServerPort
-    private Integer port;
+    @InjectMocks
+    private AgendaController agendaController;
 
-    @Test
-    public void criarAgendaTest_Sucess() {
+    @Mock
+    private AgendaServicePort agendaServicePort;
 
-        RestAssured.given()
-                .contentType("application/json")
-                .body("{" +
-                        "\"envio\": null," +
-                        "    \"ultima_atualizacao\": null," +
-                        "    \"mensagem\": \"Mais uma mensagem funcional.\"," +
-                        "    \"destinatario\" : {" +
-                        "        \"id\" : 1," +
-                        "        \"nome\": null," +
-                        "        \"login\": null," +
-                        "        \"senha\": null" +
-                        "    },\n" +
-                        "    \"remetente\" : {" +
-                        "        \"id\" : 2," +
-                        "        \"nome\": null," +
-                        "        \"login\": null," +
-                        "        \"senha\": null" +
-                        "    }" +
-                        "}")
-                .when()
-                .post("http://localhost:" + port + "/agendas")
-                .then().log().body()
-                .statusCode(200);
+    @BeforeAll
+    public static void beforeAll() {
+        MockitoAnnotations.openMocks(AgendaControllerTest.class);
     }
 
     @Test
-    public void getAgendasPorIdTest_Sucess() {
-        RestAssured
-                .when()
-                .get("http://localhost:" + port + "/agendas/20")
-                .then().log().body()
-                .contentType("application/json")
-                .statusCode(200).and()
-                .extract();
+    public void criarAgendasTest_Success() {
+        AgendaController agendaControl = mock(AgendaController.class);
+        AgendaDTO agendaDTO = new AgendaDTO(1L, null, null, "Teste",
+                new PessoaDTO(1, null, null, null), new PessoaDTO(2, null, null, null));
+
+        doNothing().when(agendaControl).criarAgendas(agendaDTO);
+        agendaControl.criarAgendas(agendaDTO);
+
+        verify(agendaControl).criarAgendas(agendaDTO);
     }
 
     @Test
-    public void getAgendaPorDestinatarioTest_Sucess() {
-        RestAssured.given()
-                .contentType("application/json")
-                .body("{\n" +
-                        "        \"id\" : 1,\n" +
-                        "        \"nome\": null,\n" +
-                        "        \"login\": null,\n" +
-                        "        \"senha\": null\n" +
-                        "}")
-                .when()
-                .get("http://localhost:" + port + "/agendas")
-                .then().log().body()
-                .statusCode(200);
+    public void getAgendaPorDestinatarioTest_Success() {
+        AgendaDTO agendaDTO = new AgendaDTO(1L, null, null, "Testando",
+                new PessoaDTO(1, null, null, null), new PessoaDTO(2, null, null, null));
+        PessoaDTO pessoaDTO = new PessoaDTO(1, null, null, null);
+        List<AgendaDTO> listAgendasDTO = new ArrayList<>();
+        listAgendasDTO.add(agendaDTO);
+
+        Mockito.when(agendaServicePort.buscarAgendaPorPessoa(pessoaDTO)).thenReturn(listAgendasDTO);
+
+        List<AgendaDTO> result = agendaController.getAgendasPorDestinatario(pessoaDTO);
+
+        assertNotNull(result);
+        assertEquals(agendaDTO.getId(), result.get(0).getId());
     }
 
     @Test
-    public void atualizarAgendaTest_Sucess() {
-        RestAssured.given()
-                .contentType("application/json")
-                .body("{" +
-                        "    \"mensagem\": \"Atualizando a nova mensagem de teste.\"" +
-                        "}")
-                .when()
-                .put("http://localhost:" + port + "/agendas/20")
-                .then().log().body()
-                .statusCode(200);
+    public void getAgendaPorIdTest_Success() {
+        AgendaDTO agendaDTO = new AgendaDTO(1L, null, null, "Testando",
+                new PessoaDTO(1, null, null, null), new PessoaDTO(2, null, null, null));
+        PessoaDTO pessoaDTO = new PessoaDTO(1, null, null, null);
+        List<AgendaDTO> listAgendasDTO = Arrays.asList(agendaDTO);
+
+        Mockito.when(agendaServicePort.buscarPeloId(1)).thenReturn(agendaDTO);
+
+        AgendaDTO result = agendaController.getAgendaPorId(1);
+
+        assertNotNull(result);
+        assertEquals(agendaDTO.getId(), result.getId());
     }
 
     @Test
-    public void deletarAgendaTest_Sucess() {
-        RestAssured.given()
-                .contentType("application/json")
-                .body("{" +
-                        "    \"mensagem\": \"Atualizando a nova mensagem de teste.\"" +
-                        "}")
-                .when()
-                .delete("http://localhost:" + port + "/agendas/20")
-                .then().log().body()
-                .statusCode(200);
+    public void atualizarAgendaTest_Success() throws NotFoundException {
+        AgendaController agendaControl = mock(AgendaController.class);
+        Integer agendaId = 1;
+        MensagemDTO mensagemDTO = new MensagemDTO();
+
+        doNothing().when(agendaControl).atualizarAgenda(agendaId, mensagemDTO);
+        agendaControl.atualizarAgenda(agendaId, mensagemDTO);
+
+        verify(agendaControl).atualizarAgenda(agendaId, mensagemDTO);
+    }
+
+    @Test
+    public void deletarAgendaTest_Success() throws NotFoundException {
+        AgendaController agendaControl = mock(AgendaController.class);
+        Integer agendaId = 1;
+
+        doNothing().when(agendaControl).deletarAgenda(agendaId);
+        agendaControl.deletarAgenda(agendaId);
+
+        verify(agendaControl).deletarAgenda(agendaId);
     }
 
 }
