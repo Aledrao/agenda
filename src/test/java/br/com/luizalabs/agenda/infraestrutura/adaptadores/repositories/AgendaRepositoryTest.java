@@ -38,7 +38,6 @@ class AgendaRepositoryTest {
     @Test
     public void buscarPorDestinatarioTest_Success() {
         Pessoa pessoa = new Pessoa(1, "Testando", "testando", "teste@teste.com");
-        PessoaEntity pessoaEntity = new PessoaEntity(pessoa);
         Agenda agenda = new Agenda(1L, null, null, "Teste", pessoa, pessoa);
         AgendaEntity agendaEntity = new AgendaEntity(agenda);
         List<AgendaEntity> agendaEntityList = Arrays.asList(agendaEntity);
@@ -93,8 +92,6 @@ class AgendaRepositoryTest {
     public void excluir_Sucess() {
         Integer agendaId = 1;
         AgendaRepository agendaRep = mock(AgendaRepository.class);
-        Pessoa pessoa = new Pessoa(1, "Testando", "testando", "teste@teste.com");
-        Agenda agenda = new Agenda(null, null, null, "Teste", pessoa, pessoa);
 
         doNothing().when(agendaRep).excluir(agendaId);
         agendaRep.excluir(agendaId);
